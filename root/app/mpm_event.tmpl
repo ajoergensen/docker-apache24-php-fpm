@@ -1,0 +1,16 @@
+# event MPM
+# StartServers: initial number of server processes to start
+# MinSpareThreads: minimum number of worker threads which are kept spare
+# MaxSpareThreads: maximum number of worker threads which are kept spare
+# ThreadsPerChild: constant number of worker threads in each server process
+# MaxRequestWorkers: maximum number of worker threads
+# MaxConnectionsPerChild: maximum number of requests a server process serves
+<IfModule mpm_event_module>
+	StartServers		{{ default .Env.MPM_START_SERVERS "2" }}
+	MinSpareThreads		{{ default .Env.MPM_MIN_SPARE_THREADS "25" }}
+	MaxSpareThreads		{{ default .Env.MPM_MAX_SPARE_THREADS "75" }}
+	ThreadLimit		{{ default .Env.MPM_THREADLIMIT "64" }}
+	ThreadsPerChild		{{ default .Env.MPM_THREADS_PER_CHILD "25" }}
+	MaxRequestWorkers	{{ default .Env.MPM_MAX_REQUEST_WORKERS "150" }}
+	MaxConnectionsPerChild  {{ default .Env.MPM_MAX_CONNECTIONS_PER_CHILD "0" }}
+</IfModule>
