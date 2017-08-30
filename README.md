@@ -3,6 +3,8 @@ Apache 2.4 with PHP FPM
 
 An image with Apache 2.4 and PHP installed from [Ondřej Surý's PPA](https://launchpad.net/~ondrej) for up to date packages.
 
+[phpinfo();](https://ajoergensen.github.io/docker-apache24-php-fpm/phpinfo.html)
+
 #### Why use this image?
 
 - Latest PHP and Apache packages
@@ -26,6 +28,7 @@ This image is available in three flavors: `5.6`, `7.0`, `7.1` corresponding to t
 - `VIRTUAL_HOST`: Sets the ServerName for the default vhost. Only needed if you do not provide your own vhost "site" config
 - `SERVER_ADMIN`: Email address for the ServerAdmin variable
 - `GENERATE_DEFAULT_VHOST_CONFIG`: By default a basic vhost configuration using the to variables above is generated. Use this switch to disable (true/false)
+- `CHOWN_WWWDIR`: Change owner of `/var/www` to `$PUID`:`$PGID`. Default is true, disable if your document root is elsewhere or there is a large number of files in the directory
 - `PUID`: Changes the uid of the app user, default 911
 - `PGID`: Changes the gid of the app group, default 911
 - `SMTP_HOST`: Change the SMTP relay server used by ssmtp (sendmail)
@@ -59,4 +62,8 @@ This image uses the [event worker](https://httpd.apache.org/docs/2.4/mod/event.h
 - `MPM_THREADS_PER_CHILD`: Default is 25
 - `MPM_MAX_REQUEST_WORKERS`: Default is 150
 - `MPM_MAX_CONNECTIONS_PER_CHILD`: Default is 0
+
+#### Volumes
+
+`/var/www` is defined as a volume; provide your own vhost configuration by adding ```-v ./conf.d:/etc/apache2/site-enabled:ro```.
 
