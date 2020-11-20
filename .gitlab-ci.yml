@@ -21,6 +21,8 @@ build-master:
   - $DB -t $CI_REGISTRY_IMAGE:7.0 -f Dockerfile.php7.0 .
   - $DB -t $CI_REGISTRY_IMAGE:7.1 -f Dockerfile.php7.1 .
   - $DB -t $CI_REGISTRY_IMAGE:7.2 -f Dockerfile.php7.2 .
+  - $DB -t $CI_REGISTRY_IMAGE:7.3 -f Dockerfile.php7.3 .
+  - $DB -t $CI_REGISTRY_IMAGE:7.4 -f Dockerfile.php7.4 .
   - git config user.email $GITHUB_EMAIL
   - git config user.name $GITHUB_USER
   - git push https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$CI_PROJECT_NAME.git HEAD:master --force
