@@ -1,0 +1,15 @@
+#!/bin/bash
+set -eo pipefail
+
+. /etc/apache2/envvars
+mkdir -p ${APACHE_LOCK_DIR} ${APACHE_RUN_DIR} 
+
+export APACHE_RUN_USER=app
+export APACHE_RUN_GROUP=app
+
+if [[ -f ${APACHE_PID_FILE} ]]
+ then
+	rm ${APACHE_PID_FILE}
+fi
+
+exec /usr/sbin/apache2 -DFOREGROUND
