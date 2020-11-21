@@ -22,7 +22,7 @@ The configuration does not support SSL out of the box as I usually stick [nginx]
 
 #### Tags
 
-This image is available in five flavors: `5.6`, `7.0`, `7.1`, `7.2` and `7.3` corresponding to the PHP version. Version 5.6 and 7.0 are not supported by PHP thus will not receive security
+This image is available in five flavors: `5.6`, `7.0`, `7.1`, `7.2`, `7.3`, `7.4` and `8.0` (RC) corresponding to the PHP version. Version 5.6, 7.0 and 7.1 are not supported by PHP thus will not receive security
 updates - but I will keep them around in case someone needs them (Ubuntu will still be updated). 
 
 #### Environment

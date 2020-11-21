@@ -1,22 +1,34 @@
 #!/bin/bash
 set -eo pipefail
+set -x
 
 # Enable PHP and Apache 2.4 PPAs
 add-apt-repository -y ppa:ondrej/apache2 
 add-apt-repository -y ppa:ondrej/php 
 
 # Update installed packages
-apt-get -y update 
 apt-get -y dist-upgrade 
 
-# Install Apache 2.4 and PHP
-apt-get -y install apache2 php$PHP_VERSION-fpm php$PHP_VERSION-mysql php$PHP_VERSION-common php-apcu php-geoip \
-	php-imagick php-igbinary php-memcached php-redis php$PHP_VERSION-bcmath php$PHP_VERSION-dba \
-	php$PHP_VERSION-enchant php$PHP_VERSION-gd php$PHP_VERSION-imap php$PHP_VERSION-intl \
-	php$PHP_VERSION-json php$PHP_VERSION-pspell php$PHP_VERSION-recode php$PHP_VERSION-tidy php$PHP_VERSION-xml \
-	php$PHP_VERSION-xmlrpc php-pear php$PHP_VERSION-zip php$PHP_VERSION-bz2 php$PHP_VERSION-mbstring \
-	php$PHP_VERSION-pgsql php$PHP_VERSION-ldap php$PHP_VERSION-curl
+PKGS="apache2 php$PHP_VERSION-fpm php$PHP_VERSION-mysql php$PHP_VERSION-common php-apcu php-geoip \
+      php$PHP_VERSION-fpm php$PHP_VERSION-mysql php$PHP_VERSION-common php-apcu php-geoip \
+      php-imagick php-igbinary php-memcached php-redis php$PHP_VERSION-bcmath php$PHP_VERSION-dba \
+      php$PHP_VERSION-enchant php$PHP_VERSION-gd php$PHP_VERSION-imap php$PHP_VERSION-intl \
+      php$PHP_VERSION-pspell php$PHP_VERSION-tidy php$PHP_VERSION-xml \
+      php-pear php$PHP_VERSION-zip php$PHP_VERSION-bz2 php$PHP_VERSION-mbstring \
+      php$PHP_VERSION-pgsql php$PHP_VERSION-ldap php$PHP_VERSION-curl"
 
+if [[ $PHP_VERSION == '5.6' || $PHP_VERSION == '7.0' || $PHP_VERSION == '7.1' || $PHP_VERSION == '7.2' || $PHP_VERSION == '7.3' ]]
+then
+	PKGS="$PKGS php$PHP_VERSION-recode"
+fi
+
+if [[ $PHP_VERSION != '8.0' ]]
+then
+	PKGS="$PKGS php$PHP_VERSION-xmlrpc php$PHP_VERSION-json"
+fi
+
+# Install Apache 2.4 and PHP
+apt-get -y install $PKGS
 
 # Enable modules
 a2enmod proxy_fcgi setenvif rewrite headers mime expires remoteip
